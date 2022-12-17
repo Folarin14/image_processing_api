@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+  backend:
+    container_name: alx_node_project
+    labels:
+      - com.host.description = Node Backend for Image Processing API
+    build: .
+    expose:
+      - 8080
+    ports:
+      - "8090:8080"
+    working_dir: /usr/src/app
+    restart: on-failure
