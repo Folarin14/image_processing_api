@@ -19,30 +19,25 @@ image.get('/', (req, res) => {
     const width = parseInt(userQuery.width as string) || undefined
     const height = parseInt(userQuery.height as string) || undefined
     
-
-    if (!width){
+    if (req.query.filename && !width){
         res.sendFile(`./images/${imageFile}`, {root: __dirname})
-        console.log("If block")
+
     }
-    else {
+    else if (req.query.filename && (width || height)) {
         sharp(`./dist/routes/api/images/${imageFile}`)
                         .resize(width, height)
                         .toFile(`./dist/routes/api/images/${fileName}_resized.jpg`)
-                        .then(info => {
-                            console.log(info)
-                            //res.sendFile(`C:\\Users\\FAHD\\Desktop\\image_processing\\project\\dist\\routes\\api\\images\\${fileName}_resized.jpg`)
+                        .then(() => {                            
                             res.sendFile(`./images/${fileName}_resized.jpg`, 
                             {root: __dirname, cacheControl: true, 
                             immutable:true, maxAge: 1800000}) //30 minutes for caching
                         })
-        console.log("Else block")
+       
+    }
+    else {
+        res.send("Image API active")
     }
 
-    console.log(userQuery)
-    console.log(fileName)
-    console.log(width)
-    console.log(height)
-    console.log("Image Route working...")
 }, )
 
 export default image

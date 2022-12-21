@@ -7,7 +7,7 @@ routes.get('/', (req, res) => {
     res.send('Root API route')
 })
 
-routes.use('/image', image) //image
+routes.use('/image', image)
 
 
 export default routes
