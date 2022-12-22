@@ -63,6 +63,11 @@ The API accepts the following query parameters:
  * height - height of the pictures in pixels 
  
  Example: http://localhost:8090/api/image?filename=foo&width=100&height=100
+ 
+ To run the server/API, run the following command in terminal:
+ 
+  * npm run start
+  * npm run test (for testing endpoints)
 
 
 <!-- CONTACT -->
