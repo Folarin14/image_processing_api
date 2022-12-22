@@ -15,9 +15,16 @@ describe('Testing Root API Endpoint', () => {
         expect(response.status).toBe(200)
     })
 
-    it('checks if a sample images actually resizes', async () => {
+    it('checks if a sample images actually resizes using width and height', async () => {
         const response = await request.get('/api/image?filename=fjord&width=200&height=200')
         expect(response.status).toBe(200)
-        
+    })
+    it('checks if a sample images actually resizes using width only', async () => {
+        const response = await request.get('/api/image?filename=fjord&width=200')
+        expect(response.status).toBe(200)
+    })
+    it('checks if a sample images actually resizes using height only', async () => {
+        const response = await request.get('/api/image?filename=fjord&height=200')
+        expect(response.status).toBe(200)
     })
 })
