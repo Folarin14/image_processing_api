@@ -68,6 +68,7 @@ The API accepts the following query parameters:
  
   * npm run start
   * npm run test (for testing endpoints)
+  * npm run prelint (to run prettier and eslint together)
 
 
 <!-- CONTACT -->
