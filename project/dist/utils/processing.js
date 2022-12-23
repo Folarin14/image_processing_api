@@ -4,7 +4,6 @@ async function image_resize(imagePath, writePath, width, height) {
     const newHeight = height
         ? Math.abs(height)
         : undefined;
-    console.log(newWidth, newHeight);
     return await sharp(imagePath).resize(newWidth, newHeight).toFile(writePath);
 }
 export default image_resize;

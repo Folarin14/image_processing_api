@@ -11,25 +11,20 @@ image.get('/', (req, res) => {
     const fileName = userQuery.filename;
     const imageFile = fileName + '.jpg';
     //check if file name exists
-    const fullPath = `C:\\Users\\FAHD\\Desktop\\image_processing\\project\\dist\\routes\\api\\images\\${imageFile}`;
+    const fullPath = path.join(__dirname, 'images', `${imageFile}`);
     if (checkFileExists(fullPath)) {
         const width = parseInt(userQuery.width) || undefined;
         const height = parseInt(userQuery.height) || undefined;
         if (userQuery.filename && !userQuery.width && !userQuery.height) {
-            console.log('If Block');
             res.sendFile(`./images/${imageFile}`, { root: __dirname });
         }
         else if (req.query.filename && (width || height)) {
-            console.log('Else if block');
-            console.log(width);
-            console.log(height);
             // before resizing, check if file already exists then serve it, else resize afresh
-            const queryImage = `C:\\Users\\FAHD\\Desktop\\image_processing\\project\\dist\\routes\\api\\images\\resized\\${fileName}_${width}x${height}.jpg`;
+            const queryImage = path.join(__dirname, 'images', 'resized', `${fileName}_${width}x${height}.jpg`);
             if (checkFileExists(queryImage)) {
                 res.sendFile(queryImage);
             }
             else {
-                console.log('Else if block - else block');
                 image_resize(`./dist/routes/api/images/${imageFile}`, `./dist/routes/api/images/resized/${fileName}_${width}x${height}.jpg`, width, height).then(() => {
                     res.sendFile(`./images/resized/${fileName}_${width}x${height}.jpg`, {
                         root: __dirname,
@@ -45,4 +40,4 @@ image.get('/', (req, res) => {
         res.send('Specified filename does not exist. Verify image exists then try again ');
     }
 });
-export default image;
+export { image, __dirname };
