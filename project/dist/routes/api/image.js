@@ -33,9 +33,6 @@ image.get('/', (req, res) => {
                 image_resize(`./dist/routes/api/images/${imageFile}`, `./dist/routes/api/images/resized/${fileName}_${width}x${height}.jpg`, width, height).then(() => {
                     res.sendFile(`./images/resized/${fileName}_${width}x${height}.jpg`, {
                         root: __dirname,
-                        // cacheControl: true,
-                        // immutable: true,
-                        // maxAge: 60000,
                     });
                 });
             }
@@ -45,7 +42,7 @@ image.get('/', (req, res) => {
         }
     }
     else {
-        res.send("Specified filename does not exist. Verify image exists then try again ");
+        res.send('Specified filename does not exist. Verify image exists then try again ');
     }
 });
 export default image;
