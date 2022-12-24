@@ -1,7 +1,5 @@
-
 import { accessSync, constants } from 'node:fs';
 import path from 'node:path';
-
 
 function checkFileExists(filePath: string): boolean {
 	try {
@@ -12,15 +10,18 @@ function checkFileExists(filePath: string): boolean {
 	}
 }
 
-function getProjectRoot(currentFilePath: string, numberOfStepsToRoot: number): string {
+function getProjectRoot(
+	currentFilePath: string,
+	numberOfStepsToRoot: number
+): string {
+	//const __filename = fileURLToPath(import.meta.url);
+	const dirPath = path.dirname(currentFilePath);
+	const dirPathArray = dirPath.split(path.sep);
+	const projectDirectory = path.normalize(
+		dirPathArray.slice(0, -numberOfStepsToRoot).join('/')
+	);
 
-    //const __filename = fileURLToPath(import.meta.url);
-    const dirPath = path.dirname(currentFilePath)
-    const dirPathArray = dirPath.split(path.sep)
-    const projectDirectory = path.normalize(dirPathArray.slice(0, -numberOfStepsToRoot).join('/'))
-
-    return projectDirectory
-
+	return projectDirectory;
 }
 
-export {checkFileExists, getProjectRoot};
+export { checkFileExists, getProjectRoot };

@@ -2,10 +2,10 @@ import express from 'express';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import image_resize from '../../utils/processing.js';
-import {checkFileExists, getProjectRoot} from '../../utils/fs_utils.js';
+import { checkFileExists, getProjectRoot } from '../../utils/fs_utils.js';
 
 const __filename = fileURLToPath(import.meta.url);
-const rootDir = getProjectRoot(__filename, 3)
+const rootDir = getProjectRoot(__filename, 3);
 // const __dirname = path.dirname(__filename);
 
 const image = express.Router();
