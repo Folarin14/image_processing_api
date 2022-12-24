@@ -13,10 +13,10 @@ image.get('/', (req: express.Request, res: express.Response): void => {
 	const userQuery = req.query;
 	const fileName = userQuery.filename;
 	const imageFile = fileName + '.jpg';
-    
-    if (!userQuery){
-        res.send('Image API active');
-    }
+
+	if (JSON.stringify(userQuery) === '{}') {
+		res.send('Image API active');
+	}
 	//check if file name exists
 	const fullPath = path.join(__dirname, 'images', `${imageFile}`);
 	if (checkFileExists(fullPath)) {
@@ -24,7 +24,7 @@ image.get('/', (req: express.Request, res: express.Response): void => {
 		const height = parseInt(userQuery.height as string) || undefined;
 
 		if (userQuery.filename && !userQuery.width && !userQuery.height) {
-			res.sendFile(`./images/${imageFile}`, { root: __dirname });
+			res.sendFile(path.join(__dirname, 'images', `${imageFile}`));
 		} else if (req.query.filename && (width || height)) {
 			// before resizing, check if file already exists then serve it, else resize afresh
 			const queryImage = path.join(
@@ -38,22 +38,26 @@ image.get('/', (req: express.Request, res: express.Response): void => {
 			} else {
 				image_resize(
 					path.join(__dirname, 'images', `${imageFile}`),
-                    path.join(__dirname, 'images', 'resized', `${fileName}_${width}x${height}.jpg`),
+					path.join(
+						__dirname,
+						'images',
+						'resized',
+						`${fileName}_${width}x${height}.jpg`
+					),
 					width,
 					height
 				).then(() => {
 					res.sendFile(
-						`./images/resized/${fileName}_${width}x${height}.jpg`,
-						{
-							root: __dirname,
-						}
+						path.join(
+							__dirname,
+							'images',
+							'resized',
+							`${fileName}_${width}x${height}.jpg`
+						)
 					);
 				});
 			}
-		} 
-        // else {
-		// 	res.send('Image API active');
-		// }
+		}
 	} else {
 		res.send(
 			'Specified filename does not exist. Verify image exists then try again '
