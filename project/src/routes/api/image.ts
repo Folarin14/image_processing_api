@@ -13,7 +13,10 @@ image.get('/', (req: express.Request, res: express.Response): void => {
 	const userQuery = req.query;
 	const fileName = userQuery.filename;
 	const imageFile = fileName + '.jpg';
-
+    
+    if (!userQuery){
+        res.send('Image API active');
+    }
 	//check if file name exists
 	const fullPath = path.join(__dirname, 'images', `${imageFile}`);
 	if (checkFileExists(fullPath)) {
@@ -47,9 +50,10 @@ image.get('/', (req: express.Request, res: express.Response): void => {
 					);
 				});
 			}
-		} else {
-			res.send('Image API active');
-		}
+		} 
+        // else {
+		// 	res.send('Image API active');
+		// }
 	} else {
 		res.send(
 			'Specified filename does not exist. Verify image exists then try again '
