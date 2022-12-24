@@ -1,6 +1,6 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import checkFileExists from '../../../dist/utils/fs_utils.js'
+import {checkFileExists} from '../../../dist/utils/fs_utils.js'
 
 const __filename = fileURLToPath(import.meta.url);
 console.log(__filename)
@@ -17,9 +17,9 @@ console.log(checkFileExists(imagePath))
 const fullPath = path.dirname(__filename)
 const fullPathArray = fullPath.split(path.sep)
 
-const imageFolderPath = fullPathArray.slice(0,-3).join("\\")
+const imageFolderPath = fullPathArray.slice(0,-3).join("/")
 console.log(imageFolderPath)
 
-const imageTest = path.normalize(imageFolderPath)//, 'images', 'alex.jpg')
+const imageTest = path.join(imageFolderPath, 'images', 'alex.jpg')
 console.log(imageTest)
 console.log(checkFileExists(imageTest))

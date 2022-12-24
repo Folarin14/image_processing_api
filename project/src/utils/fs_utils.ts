@@ -17,7 +17,7 @@ function getProjectRoot(currentFilePath: string, numberOfStepsToRoot: number): s
     //const __filename = fileURLToPath(import.meta.url);
     const dirPath = path.dirname(currentFilePath)
     const dirPathArray = dirPath.split(path.sep)
-    const projectDirectory = path.normalize(dirPathArray.slice(0, -numberOfStepsToRoot).join('\\'))
+    const projectDirectory = path.normalize(dirPathArray.slice(0, -numberOfStepsToRoot).join('/'))
 
     return projectDirectory
 
