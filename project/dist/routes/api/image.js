@@ -25,7 +25,7 @@ image.get('/', (req, res) => {
                 res.sendFile(queryImage);
             }
             else {
-                image_resize(`./dist/routes/api/images/${imageFile}`, `./dist/routes/api/images/resized/${fileName}_${width}x${height}.jpg`, width, height).then(() => {
+                image_resize(path.join(__dirname, 'images', `${imageFile}`), path.join(__dirname, 'images', 'resized', `${fileName}_${width}x${height}.jpg`), width, height).then(() => {
                     res.sendFile(`./images/resized/${fileName}_${width}x${height}.jpg`, {
                         root: __dirname,
                     });

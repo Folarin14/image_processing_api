@@ -34,8 +34,8 @@ image.get('/', (req: express.Request, res: express.Response): void => {
 				res.sendFile(queryImage);
 			} else {
 				image_resize(
-					`./dist/routes/api/images/${imageFile}`,
-					`./dist/routes/api/images/resized/${fileName}_${width}x${height}.jpg`,
+					path.join(__dirname, 'images', `${imageFile}`),
+                    path.join(__dirname, 'images', 'resized', `${fileName}_${width}x${height}.jpg`),
 					width,
 					height
 				).then(() => {
