@@ -1,7 +1,7 @@
 import supertest from 'supertest';
 import app from '../server.js';
 import image_resize from '../utils/processing.js';
-import { __dirname } from '../routes/api/image.js';
+import { rootDir } from '../routes/api/image.js';
 import path from 'node:path';
 // import { fileURLToPath } from 'node:url';
 
@@ -42,9 +42,9 @@ describe('Testing API Endpoints', () => {
 	});
 	it('checks if the resize function creates a new resized file', async () => {
 		await image_resize(
-			path.join(__dirname, 'images', 'icelandwaterfall.jpg'),
+			path.join(rootDir, 'images', 'icelandwaterfall.jpg'),
 			path.join(
-				__dirname,
+				rootDir,
 				'images',
 				'resized',
 				'test_icelandwaterfall_200x200.jpg'
@@ -55,7 +55,7 @@ describe('Testing API Endpoints', () => {
 
 		expect(
 			path.join(
-				__dirname,
+				rootDir,
 				'images',
 				'resized',
 				'test_icelandwaterfall_200x200.jpg'
@@ -64,9 +64,9 @@ describe('Testing API Endpoints', () => {
 	});
 	it('checks if the resize function correctly resizes and saves file when negative width/height is passed', async () => {
 		await image_resize(
-			path.join(__dirname, 'images', 'icelandwaterfall.jpg'),
+			path.join(rootDir, 'images', 'icelandwaterfall.jpg'),
 			path.join(
-				__dirname,
+				rootDir,
 				'images',
 				'resized',
 				'test_icelandwaterfall_200x20.jpg'
@@ -77,7 +77,7 @@ describe('Testing API Endpoints', () => {
 
 		expect(
 			path.join(
-				__dirname,
+				rootDir,
 				'images',
 				'resized',
 				'test_icelandwaterfall_200x20.jpg'
@@ -86,9 +86,9 @@ describe('Testing API Endpoints', () => {
 	});
 	it('checks if the resize function correctly resizes and saves file when only width is given', async () => {
 		await image_resize(
-			path.join(__dirname, 'images', 'icelandwaterfall.jpg'),
+			path.join(rootDir, 'images', 'icelandwaterfall.jpg'),
 			path.join(
-				__dirname,
+				rootDir,
 				'images',
 				'resized',
 				'test_icelandwaterfall_400xundefined.jpg'
@@ -99,7 +99,7 @@ describe('Testing API Endpoints', () => {
 
 		expect(
 			path.join(
-				__dirname,
+				rootDir,
 				'images',
 				'resized',
 				'test_icelandwaterfall_400xundefined.jpg'
@@ -108,9 +108,9 @@ describe('Testing API Endpoints', () => {
 	});
 	it('checks if the resize function correctly resizes and saves file when only height is given', async () => {
 		await image_resize(
-			path.join(__dirname, 'images', 'icelandwaterfall.jpg'),
+			path.join(rootDir, 'images', 'icelandwaterfall.jpg'),
 			path.join(
-				__dirname,
+				rootDir,
 				'images',
 				'resized',
 				'test_icelandwaterfall_undefinedx300.jpg'
@@ -121,7 +121,7 @@ describe('Testing API Endpoints', () => {
 
 		expect(
 			path.join(
-				__dirname,
+				rootDir,
 				'images',
 				'resized',
 				'test_icelandwaterfall_undefinedx300.jpg'
@@ -130,9 +130,9 @@ describe('Testing API Endpoints', () => {
 	});
 	it('checks if the resize function correctly resizes and saves file when height = 0', async () => {
 		await image_resize(
-			path.join(__dirname, 'images', 'icelandwaterfall.jpg'),
+			path.join(rootDir, 'images', 'icelandwaterfall.jpg'),
 			path.join(
-				__dirname,
+				rootDir,
 				'images',
 				'resized',
 				'test_icelandwaterfall_undefinedx0.jpg'
@@ -143,7 +143,7 @@ describe('Testing API Endpoints', () => {
 
 		expect(
 			path.join(
-				__dirname,
+				rootDir,
 				'images',
 				'resized',
 				'test_icelandwaterfall_undefinedx0.jpg'

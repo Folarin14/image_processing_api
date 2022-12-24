@@ -2,10 +2,11 @@ import express from 'express';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import image_resize from '../../utils/processing.js';
-import checkFileExists from '../../utils/fs_utils.js';
+import { checkFileExists, getProjectRoot } from '../../utils/fs_utils.js';
 
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const rootDir = getProjectRoot(__filename, 3);
+// const __dirname = path.dirname(__filename);
 
 const image = express.Router();
 
@@ -15,17 +16,17 @@ image.get('/', (req: express.Request, res: express.Response): void => {
 	const imageFile = fileName + '.jpg';
 
 	//check if file name exists
-	const fullPath = path.join(__dirname, 'images', `${imageFile}`);
+	const fullPath = path.join(rootDir, 'images', `${imageFile}`);
 	if (checkFileExists(fullPath)) {
 		const width = parseInt(userQuery.width as string) || undefined;
 		const height = parseInt(userQuery.height as string) || undefined;
 
 		if (userQuery.filename && !userQuery.width && !userQuery.height) {
-			res.sendFile(path.join(__dirname, 'images', `${imageFile}`));
+			res.sendFile(path.join(rootDir, 'images', `${imageFile}`));
 		} else if (req.query.filename && (width || height)) {
 			// before resizing, check if file already exists then serve it, else resize afresh
 			const queryImage = path.join(
-				__dirname,
+				rootDir,
 				'images',
 				'resized',
 				`${fileName}_${width}x${height}.jpg`
@@ -34,9 +35,9 @@ image.get('/', (req: express.Request, res: express.Response): void => {
 				res.sendFile(queryImage);
 			} else {
 				image_resize(
-					path.join(__dirname, 'images', `${imageFile}`),
+					path.join(rootDir, 'images', `${imageFile}`),
 					path.join(
-						__dirname,
+						rootDir,
 						'images',
 						'resized',
 						`${fileName}_${width}x${height}.jpg`
@@ -46,7 +47,7 @@ image.get('/', (req: express.Request, res: express.Response): void => {
 				).then(() => {
 					res.sendFile(
 						path.join(
-							__dirname,
+							rootDir,
 							'images',
 							'resized',
 							`${fileName}_${width}x${height}.jpg`
@@ -62,4 +63,4 @@ image.get('/', (req: express.Request, res: express.Response): void => {
 	}
 });
 
-export { image, __dirname };
+export { image, rootDir };
