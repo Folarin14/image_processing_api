@@ -6,8 +6,8 @@ import { checkFileExists, getProjectRoot } from '../../utils/fs_utils.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const rootDir = getProjectRoot(__filename, 3);
-// const __dirname = path.dirname(__filename);
 
+// TODO: Display error message when user inputs text/string as input to height/width
 const image = express.Router();
 
 image.get('/', (req: express.Request, res: express.Response): void => {
